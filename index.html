@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    background-color: #282828;
+    padding: 10px;
+    width: auto;
+}
+
+p {
+    position: relative;
+    text-align: left;
+    font-size: 1.5em;
+    color: #ebdbb2;
+    font-family: monospace;
+}
+
+div {
+    margin: auto;
+    width: 75%;
+    border: 1.25em;
+    padding: 1.25em;
+}
+
+table {
+    border-collapse: collapse;
+    color: #ebdbb2;
+    font-size: 1.5em;
+    font-family: monospace;
+    border: 1.25em;
+    padding: 1.25em;
+
+  }
+td {
+    padding: .75em;
+}
+
+table th, table td {
+    border: dashed 1px #928374;
+}
+</style>
+<title>YourInfo</title>
+</head>
+    <body>
+        <p># YourInfo</p>
+    </body>
+<script>
+body = document.getElementsByTagName('body')[0];
+tab = document.createElement('table');
+
+var userAgents, body, tab, tr, td, tn, row, col;
+
+function myIP() {
+    if (window.XMLHttpRequest) xmlhttp = new XMLHttpRequest();
+    else xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+    xmlhttp.open("GET","http://api.hostip.info/get_html.php",false);
+    xmlhttp.send();
+
+    hostipInfo = xmlhttp.responseText.split("\n");
+
+    for (i=0; hostipInfo.length >= i; i++) {
+        ipAddress = hostipInfo[i].split(":");
+        if ( ipAddress[0] == "IP" ) return ipAddress[1];
+    }
+
+    return false;
+}
+
+var ip = myIP();
+
+var userAgents = [
+    ["grobal ip", ip],
+    ["host", location.host], 
+    ["hostname", location.hostname],
+    ["port", location.port],
+    ["pathname", location.pathname],
+    ["appcoename", navigator.appCodeName],
+    ["appname", navigator.appName],
+    ["appversion", navigator.appVersion],
+    ["language", navigator.language],
+    ["platform", navigator.platform],
+    ["useragent", navigator.userAgent],
+    ["referrer", document.referrer],
+    ["domain", document.domain],
+    ["width", screen.width],
+    ["height", screen.height],
+    ["current_width", window.innerWidth],
+    ["current_height", window.innerHeight],
+    ["colordepth", screen.colorDepth]
+    ];
+
+for (row = 0; row < userAgents.length; row++){
+    tr = document.createElement('tr');
+    for (col = 0; col < userAgents[row].length; col++){
+        td = document.createElement('td');
+        tn = document.createTextNode(userAgents[row][col]);
+        td.appendChild(tn);
+        tr.appendChild(td);
+    }
+    tab.appendChild(tr);
+    }
+
+body.appendChild(tab);
+
+</script>
+</html>
